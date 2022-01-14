@@ -1,0 +1,7 @@
+/.idea
+/.vscode
+/.phpintel
+/mysql
+.env
+# macOS
+.DS_Store
