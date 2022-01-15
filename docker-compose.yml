@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  talently_net:
+  wb_net:
 
 services:
   nginx:
@@ -21,7 +21,7 @@ services:
       - redis
       - mysql
     networks:
-      - talently_net
+      - wb_net
 
   mysql:
     image: mysql:5.7.33
@@ -41,7 +41,7 @@ services:
       - ./mysql:/var/lib/mysql
       - ./scripts:/scripts
     networks:
-      - talently_net
+      - wb_net
 
   workspace:
     build:
@@ -54,7 +54,7 @@ services:
     volumes:
       - ${SRC_PATH}:/var/www/html:delegated
     networks:
-      - talently_net
+      - wb_net
 
   redis:
     image: redis:alpine
@@ -63,7 +63,7 @@ services:
     ports:
       - ${REDIS_PORT}:6379
     networks:
-      - talently_net
+      - wb_net
 
   npm:
     image: node:13.7
@@ -73,4 +73,4 @@ services:
     working_dir: /var/www/html
     entrypoint: ['npm']
     networks:
-      - talently_net
+      - wb_net

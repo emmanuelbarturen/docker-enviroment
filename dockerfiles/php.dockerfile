@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine
+FROM php:7.3-fpm-alpine
 
 ARG UID
 ARG GID
@@ -23,8 +23,8 @@ RUN echo "php_admin_flag[log_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions gd xdebug zip pcntl
+    install-php-extensions bcmath gd xdebug zip pcntl intl exif redis pdo pdo_mysql
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
+ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+USER laravel
 CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
