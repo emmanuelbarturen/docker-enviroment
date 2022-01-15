@@ -28,6 +28,7 @@ services:
     container_name: ${APP_NAME}_mysql
     restart: unless-stopped
     tty: true
+    working_dir: /scripts
     ports:
       - ${MYSQL_PORT}:3306
     environment:
