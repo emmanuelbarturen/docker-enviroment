@@ -67,7 +67,7 @@ services:
 
   npm:
     image: node:13.7
-    container_name: npm
+    container_name: ${APP_NAME}_npm
     volumes:
       - ${SRC_PATH}:/var/www/html
     working_dir: /var/www/html
