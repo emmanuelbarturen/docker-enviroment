@@ -23,14 +23,16 @@ RUN echo "php_admin_flag[log_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf
 # Add and Enable PHP-PDO Extenstions
 RUN docker-php-ext-install pdo pdo_mysql bcmath
 RUN docker-php-ext-enable pdo_mysql
+
 # Install PHP Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 # Remove Cache
 RUN rm -rf /var/cache/apk/*
-# Add UID '1000' to www-data
-#RUN usermod -u 1000 www-data
+
 # Copy existing application directory permissions
-COPY --chown=www-data:www-data . /var/www
+COPY --chown=www-data:www-data . /var/www/html
+
 USER laravel
 
 CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
