@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine
+FROM php:8.0.15-fpm-alpine
 
 ARG UID
 ARG GID
@@ -20,11 +20,17 @@ RUN sed -i "s/user = www-data/user = laravel/g" /usr/local/etc/php-fpm.d/www.con
 RUN sed -i "s/group = www-data/group = laravel/g" /usr/local/etc/php-fpm.d/www.conf
 RUN echo "php_admin_flag[log_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf
 
-ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-
-RUN chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions bcmath gd xdebug zip pcntl intl exif redis pdo pdo_mysql
-
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Add and Enable PHP-PDO Extenstions
+RUN docker-php-ext-install pdo pdo_mysql bcmath
+RUN docker-php-ext-enable pdo_mysql
+# Install PHP Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Remove Cache
+RUN rm -rf /var/cache/apk/*
+# Add UID '1000' to www-data
+#RUN usermod -u 1000 www-data
+# Copy existing application directory permissions
+COPY --chown=www-data:www-data . /var/www
+USER laravel
 
 CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]

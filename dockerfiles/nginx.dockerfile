@@ -1,4 +1,4 @@
-FROM nginx:1.18-alpine
+FROM nginx:1.21.5-alpine
 
 ARG UID
 ARG GID
