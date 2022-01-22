@@ -2,11 +2,11 @@
 
 **Contenido**
 
-- Nginx 1.18
-- Php 7.2
+- Nginx 1.21.5
+- Php 8
 - redis alpine
 - composer 2.0
-- mysql 5.7
+- mysql 8.0.28
 
 ## Empezar
 
