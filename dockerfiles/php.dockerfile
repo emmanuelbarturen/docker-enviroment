@@ -26,13 +26,13 @@ RUN docker-php-ext-enable pdo_mysql
 
 # Install PHP Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
+RUN apk add --no-cache git
 # Remove Cache
 RUN rm -rf /var/cache/apk/*
 
 # Copy existing application directory permissions
 COPY --chown=www-data:www-data . /var/www/html
 
-USER laravel
+USER root
 
 CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
