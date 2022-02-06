@@ -1,11 +1,11 @@
-# Docker Enviroment for Laravel 6.x
+# Docker Enviroment for Laravel 7.x
 
 > En español
 
 **Contenido**
 
-- Nginx 1.18
-- Php 7.2
+- Nginx stable alpine
+- Php 7.3
 - redis alpine
 - composer 2.0
 - mysql 5.7
@@ -59,4 +59,9 @@ Podemos ejecutar comandos para laravel de dos maneras:
 - Limpiar contenedores no usados `docker container prune`
 - Limpiar networks no usados `docker network prune`
 
-## Revisar Cron
+##  Folder Utils
+En este folder encontraremos scripts que failitarán el desarrollo
+
+### import-database-ssh.sh.example
+Este script sirve para descargar una base de datos mysql remota a un script.sql, finalizado el proceso este archivo
+lo podras encontrar en /mysql/scripts/
