@@ -4,7 +4,7 @@ services:
   nginx:
     build:
       context: ./nginx
-      dockerfile: Dockerfile
+      dockerfile: dev.Dockerfile
     container_name: ${APP_NAME}_nginx
     ports:
       - ${NGINX_PORT}:80
@@ -31,13 +31,15 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-      - ./mysql:/var/lib/mysql
-      - ./scripts:/scripts
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/scripts:/scripts
 
   workspace:
     build:
       context: ./php-workspace
-      dockerfile: Dockerfile
+      dockerfile: dev.Dockerfile
+      args:
+        - ENABLE_CRONTAB=${ENABLE_CRONTAB:-1}
     container_name: ${APP_NAME}_workspace
     volumes:
       - ${SRC_PATH}:/var/www/html
