@@ -20,7 +20,7 @@ services:
     container_name: ${APP_NAME}_mysql
     restart: unless-stopped
     tty: true
-    working_dir: /mysql/scripts
+    working_dir: /scripts
     ports:
       - ${MYSQL_PORT}:3306
     environment:
@@ -33,7 +33,6 @@ services:
     volumes:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/scripts:/scripts
-      - /home/emmanuel/.ssh:/root/.ssh
 
   workspace:
     build:
