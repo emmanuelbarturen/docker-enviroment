@@ -57,3 +57,16 @@ services:
       - ${SRC_PATH}:/var/www/html
     working_dir: /var/www/html
     entrypoint: ['npm']
+
+  cron:
+    build:
+      context: crontab
+      dockerfile: dev.Dockerfile
+      args:
+        - ENABLE_CRONTAB=${ENABLE_CRONTAB:-1}
+        - APP_NAME=${APP_NAME}
+    container_name: ${APP_NAME}_cron
+    volumes:
+      - ${SRC_PATH}:/var/www/html
+    depends_on:
+      - workspace

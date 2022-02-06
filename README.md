@@ -53,10 +53,13 @@ Podemos ejecutar comandos para laravel de dos maneras:
 - `docker-compose run --rm npm run prod`
 - `docker-compose run --rm workspace php artisan migrate`
 - ` docker-compose exec cron ps aux` // ver procesos corriendo en el contenedor cron
-### Crontab   
-Para utilizar el scheduler de Laravel habilitar el crontab en el archivo `.env`. 1=activado, 0=desactivado.
 
-`ENABLE_CRONTAB=1`
+### Scheduler   
+- Development
+   Para entorno de testing, ingresar al contenedor workspace y ejecutar `php artisan schedule:run`
+- Production
+  Para utilizar el scheduler de Laravel habilitar el crontab en el archivo `.env`. 1=activado, 0=desactivado.
+  `ENABLE_CRONTAB=1`   
 
 ### Apagar contenedor 
 - Para esta opción debes estar en el directorio del contenedor  `docker-compose down`
