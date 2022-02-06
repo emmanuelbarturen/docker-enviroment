@@ -20,18 +20,20 @@ Project-local
 ```
 Copiar archivo `.env.example` y pegarlo como `.env`. Cambiar las variables de entorno.
 
-> Puertos por defecto:   
->  **nginx** - `:80`   
->  **mysql** - `:3306`   
->  **php** - `:9000`   
->  **redis** - `:6379`
+#### Puertos por defecto:   
+  **nginx** - `:80`   
+  **mysql** - `:3306`   
+  **php** - `:9000`   
+  **redis** - `:6379`
 
-> **DB Accesos**:   
-> user: docker   
-> password: secret
-> ------
+#### **DB Accesos**:   
+ user: docker   
+ password: secret
+
 > Si el accesos es externo (workbench,datagrip,etc) -> host: localhost
 > Si el accesos es interno (contenedor) -> host: mysql
+
+
 
 ### Construir contenedor
 - Construir contenedor `docker-compose build`
@@ -50,6 +52,11 @@ Podemos ejecutar comandos para laravel de dos maneras:
 - `docker-compose run --rm npm install`
 - `docker-compose run --rm npm run prod`
 - `docker-compose run --rm workspace php artisan migrate`
+- 
+### Crontab   
+Para utilizar el scheduler de Laravel habilitar el crontab en el archivo `.env`. 1=activado, 0=desactivado.
+
+`ENABLE_CRONTAB=1`
 
 ### Apagar contenedor 
 - Para esta opción debes estar en el directorio del contenedor  `docker-compose down`
