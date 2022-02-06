@@ -1,4 +1,5 @@
-FROM php:7.3-fpm-alpine
+ARG APP_NAME
+FROM ${APP_NAME}_workspace
 
 ADD crontab.sh /etc/crontab.sh
 ARG ENABLE_CRONTAB

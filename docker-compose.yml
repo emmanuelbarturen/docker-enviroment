@@ -39,6 +39,7 @@ services:
       context: ./php-workspace
       dockerfile: dev.Dockerfile
     container_name: ${APP_NAME}_workspace
+    image: ${APP_NAME}_workspace
     volumes:
       - ${SRC_PATH}:/var/www/html
 
@@ -63,6 +64,9 @@ services:
       dockerfile: dev.Dockerfile
       args:
         - ENABLE_CRONTAB=${ENABLE_CRONTAB:-1}
+        - APP_NAME=${APP_NAME}
     container_name: ${APP_NAME}_cron
     volumes:
       - ${SRC_PATH}:/var/www/html
+    depends_on:
+      - workspace
