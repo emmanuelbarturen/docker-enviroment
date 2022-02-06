@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# SSH
+ID_RSA=~/.ssh/id_rsa
+USER=root
+SERVER_IP=0.0.0.0
+
+# Remote mysql
+REMOTE_DB_USER=root
+REMOTE_DB_PASS=secret
+REMOTE_DB_NAME=database_name
+
+
+NOW=$(date +"%Y%m%d-%H%M")
+SCRIPT_NAME=../mysql/scripts/remote-$NOW.sql
+eval "ssh -i $ID_RSA $USER@$SERVER_IP 'mysqldump -u $REMOTE_DB_USER -p$REMOTE_DB_PASS $REMOTE_DB_NAME' > $SCRIPT_NAME"
+echo "Base de datos importada en archivo $SCRIPT_NAME!"
+echo "Finalizado!"
