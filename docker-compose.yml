@@ -1,34 +1,26 @@
-version: '3'
-
-networks:
-  wb_net:
+version: '3.8'
 
 services:
   nginx:
     build:
-      context: ./dockerfiles
-      dockerfile: nginx.dockerfile
-      args:
-        - UID=${UID:-1000}
-        - GID=${GID:-1000}
+      context: ./nginx
+      dockerfile: dev.Dockerfile
     container_name: ${APP_NAME}_nginx
     ports:
       - ${NGINX_PORT}:80
     volumes:
-      - ${SRC_PATH}:/var/www/html:delegated
+      - ${SRC_PATH}:/var/www/html
     depends_on:
       - workspace
       - redis
       - mysql
-    networks:
-      - wb_net
 
   mysql:
     image: mysql:5.7.33
     container_name: ${APP_NAME}_mysql
     restart: unless-stopped
     tty: true
-    working_dir: /scripts
+    working_dir: /mysql/scripts
     ports:
       - ${MYSQL_PORT}:3306
     environment:
@@ -39,23 +31,16 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-      - ./mysql:/var/lib/mysql
-      - ./scripts:/scripts
-    networks:
-      - wb_net
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/scripts:/scripts
 
   workspace:
     build:
-      context: ./dockerfiles
-      dockerfile: php.dockerfile
-      args:
-        - UID=${UID:-1000}
-        - GID=${GID:-1000}
+      context: ./php-workspace
+      dockerfile: dev.Dockerfile
     container_name: ${APP_NAME}_workspace
     volumes:
-      - ${SRC_PATH}:/var/www/html:delegated
-    networks:
-      - wb_net
+      - ${SRC_PATH}:/var/www/html
 
   redis:
     image: redis:alpine
@@ -63,8 +48,6 @@ services:
     restart: unless-stopped
     ports:
       - ${REDIS_PORT}:6379
-    networks:
-      - wb_net
 
   npm:
     image: node:13.7
@@ -73,5 +56,13 @@ services:
       - ${SRC_PATH}:/var/www/html
     working_dir: /var/www/html
     entrypoint: ['npm']
-    networks:
-      - wb_net
+
+  cron:
+    build:
+      context: crontab
+      dockerfile: dev.Dockerfile
+      args:
+        - ENABLE_CRONTAB=${ENABLE_CRONTAB:-1}
+    container_name: ${APP_NAME}_cron
+    volumes:
+      - ${SRC_PATH}:/var/www/html

@@ -58,3 +58,5 @@ Podemos ejecutar comandos para laravel de dos maneras:
 
 - Limpiar contenedores no usados `docker container prune`
 - Limpiar networks no usados `docker network prune`
+
+## Revisar Cron
