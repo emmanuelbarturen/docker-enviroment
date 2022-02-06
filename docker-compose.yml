@@ -38,8 +38,6 @@ services:
     build:
       context: ./php-workspace
       dockerfile: dev.Dockerfile
-      args:
-        - ENABLE_CRONTAB=${ENABLE_CRONTAB:-1}
     container_name: ${APP_NAME}_workspace
     volumes:
       - ${SRC_PATH}:/var/www/html
@@ -58,3 +56,13 @@ services:
       - ${SRC_PATH}:/var/www/html
     working_dir: /var/www/html
     entrypoint: ['npm']
+
+  cron:
+    build:
+      context: crontab
+      dockerfile: dev.Dockerfile
+      args:
+        - ENABLE_CRONTAB=${ENABLE_CRONTAB:-1}
+    container_name: ${APP_NAME}_cron
+    volumes:
+      - ${SRC_PATH}:/var/www/html

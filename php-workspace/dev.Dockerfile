@@ -21,9 +21,4 @@ ADD opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 # Remove Cache
 RUN rm -rf /var/cache/apk/*
 
-## activate CRONTAB if enabled
-ADD crontab.sh /etc/crontab.sh
-ARG ENABLE_CRONTAB
-ENV ENABLE_CRONTAB ${ENABLE_CRONTAB}
-ENTRYPOINT ["sh", "/etc/crontab.sh"]
 CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
