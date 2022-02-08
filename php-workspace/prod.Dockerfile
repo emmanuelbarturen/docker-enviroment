@@ -19,6 +19,8 @@ RUN docker-php-ext-install pdo pdo_mysql
 # Install PHP Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+ADD opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+
 # Remove Cache
 RUN rm -rf /var/cache/apk/*
 

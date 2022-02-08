@@ -39,7 +39,6 @@ services:
       context: ./php-workspace
       dockerfile: dev.Dockerfile
     container_name: ${APP_NAME}_workspace
-    image: ${APP_NAME}_workspace
     volumes:
       - ${SRC_PATH}:/var/www/html
 
