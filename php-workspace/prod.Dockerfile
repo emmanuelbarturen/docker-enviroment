@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-alpine
+FROM php:8.1-rc-fpm-alpine3.15
 
 ENV PHPGROUP=laravel
 ENV PHPUSER=laravel

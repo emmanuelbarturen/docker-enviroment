@@ -75,3 +75,10 @@ En este folder encontraremos scripts que failitarán el desarrollo
 ### import-database-ssh.sh.example
 Este script sirve para descargar una base de datos mysql remota a un script.sql, finalizado el proceso este archivo
 lo podras encontrar en /mysql/scripts/
+
+
+### Supported Software 
+
+- Laravel 9.x
+- PhpRedis
+- 
