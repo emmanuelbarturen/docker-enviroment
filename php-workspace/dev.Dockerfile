@@ -21,7 +21,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Remove Cache
 RUN rm -rf /var/cache/apk/*
-
 COPY bash_aliases /root/.bashrc
+
+RUN chmod -R 777 .
+RUN chown -R ${PHPUSER}:${PHPUSER} .
+
+USER ${PHPUSER}
 
 CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
