@@ -1,0 +1,2 @@
+alias art='php artisan'
+export PATH="./vendor/bin:$PATH"
