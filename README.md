@@ -8,7 +8,7 @@
 - Php 8.1
 - redis alpine
 - composer 2.0
-- mysql 5.7
+- mysql 8.0
 
 ## Empezar
 
