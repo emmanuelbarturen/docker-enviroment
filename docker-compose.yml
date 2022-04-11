@@ -33,6 +33,12 @@ services:
     volumes:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/scripts:/scripts
+  worker:
+    image: php-worker:latest
+    build:
+      context: ./php-worker
+      dockerfile: dev.Dockerfile
+    container_name: ${APP_NAME}_worker
 
   workspace:
     build:

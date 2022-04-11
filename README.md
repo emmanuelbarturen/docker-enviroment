@@ -1,11 +1,11 @@
-# Docker Enviroment for Laravel 7.x
+# Docker Enviroment for Laravel 9.x
 
 > En español
 
 **Contenido**
 
 - Nginx stable alpine
-- Php 7.3
+- Php 8.1
 - redis alpine
 - composer 2.0
 - mysql 5.7
